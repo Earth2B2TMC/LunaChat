@@ -21,7 +21,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import com.github.ucchyocean.lc3.bridge.DynmapBridge;
 import com.github.ucchyocean.lc3.bridge.McMMOBridge;
@@ -35,6 +34,8 @@ import com.github.ucchyocean.lc3.command.LunaChatJapanizeCommand;
 import com.github.ucchyocean.lc3.command.LunaChatMessageCommand;
 import com.github.ucchyocean.lc3.command.LunaChatReplyCommand;
 import com.github.ucchyocean.lc3.member.ChannelMember;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 
 /**
  * LunaChatのBukkit実装
@@ -52,13 +53,15 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
     private DynmapBridge dynmap;
     private MultiverseCoreBridge multiverse;
 
-    private BukkitTask expireCheckerTask;
+    private WrappedTask expireCheckerTask;
     private LunaChatLogger normalChatLogger;
 
     private LunaChatCommand lunachatCommand;
     private LunaChatMessageCommand messageCommand;
     private LunaChatReplyCommand replyCommand;
     private LunaChatJapanizeCommand lcjapanizeCommand;
+    
+    private FoliaLib foliaLib;
 
     /**
      * プラグインが有効化されたときに呼び出されるメソッド
@@ -69,6 +72,9 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
 
         LunaChat.setPlugin(this);
         LunaChat.setMode(LunaChatMode.BUKKIT);
+
+        // FoliaLib Initialize
+        foliaLib = new FoliaLib(this);
 
         // Metrics
         Metrics metrics = new Metrics(this, 7936);
@@ -131,8 +137,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
         lcjapanizeCommand = new LunaChatJapanizeCommand();
 
         // 期限チェッカータスクの起動
-        expireCheckerTask = Bukkit.getScheduler().runTaskTimerAsynchronously(
-                this, new ExpireCheckTask(), 100, 600);
+        expireCheckerTask = foliaLib.getImpl().runTimerAsync(new ExpireCheckTask(), 100, 100);
 
         // イベント実行クラスの登録
         LunaChat.setEventSender(new BukkitEventSender());

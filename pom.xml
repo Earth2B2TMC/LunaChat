@@ -16,8 +16,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
-    <java.version.short>8</java.version.short>
+    <java.version>17</java.version>
+    <java.version.short>17</java.version.short>
   </properties>
 
   <distributionManagement>
@@ -67,7 +67,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.0</version>
         <configuration>
           <createDependencyReducedPom>false</createDependencyReducedPom>
           <minimizeJar>true</minimizeJar>
@@ -135,7 +135,7 @@
     <repository>
       <id>onarandombox-repo</id>
       <name>Multiverse repository</name>
-      <url>http://repo.onarandombox.com/content/repositories/multiverse/</url>
+      <url>https://repo.onarandombox.com/content/groups/public/</url>
     </repository>
     <repository>
       <id>codemc-repo</id>
@@ -145,7 +145,7 @@
     <repository>
       <id>weaondara-repo</id>
       <name>wea_ondara's Repository</name>
-      <url>http://repo.wea-ondara.net/repository/public/</url>
+      <url>https://repo.wea-ondara.net/repository/public/</url>
     </repository>
     <repository>
       <id>md5-repo</id>
@@ -156,6 +156,10 @@
       <id>BungeeCord-repo</id>
       <name>sonatype repository</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <id>devmart-other</id>
+      <url>https://nexuslite.gcnt.net/repos/other/</url>
     </repository>
   </repositories>
 
@@ -289,6 +293,12 @@
       <artifactId>junit</artifactId>
       <version>4.13.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tcoded</groupId>
+      <artifactId>FoliaLib</artifactId>
+      <version>0.3.1</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>
